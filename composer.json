@@ -1,0 +1,20 @@
+{
+    "name": "epokmedia/jubatus",
+    "description": "Jubatus is a distributed processing framework and streaming machine learning library. This is a Jubatus client for PHP 5.3+",
+    "authors": [
+        {
+            "name": "EPOKMEDIA",
+            "email": "info@epokmedia.fr"
+        }
+    ],
+    "keywords": ["ml", "jubatus", "machine learning", "classifier"],
+    "license":"MIT",
+    "autoload": {
+        "psr-0": {
+            "Epkm\\Jubatus": "src"
+        }
+    },
+    "require": {
+        "epokmedia/msgpackrpc": "0.1"
+    }
+}
