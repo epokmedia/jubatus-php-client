@@ -43,6 +43,23 @@ class Client extends AbstractClient {
     }
 
     /**
+     * @param string $label
+     * @param Datum  $datum
+     * @param string $taskName
+     *
+     * @return int
+     */
+    public function trainDatum($label, Datum $datum, $taskName = self::DEFAULT_TASK_NAME)
+    {
+        $labelDatum = new StringDatumTuple($label, $datum);
+
+        $labelDatumList = new StringDatumTupleList();
+        $labelDatumList->add($labelDatum);
+
+        return $this->train($labelDatumList, $taskName);
+    }
+
+    /**
      * Train a single string of text with the given label
      * @param string $label
      * @param string $string
@@ -55,12 +72,7 @@ class Client extends AbstractClient {
         $datum = new Datum();
         $datum->addStringValue('message', $string);
 
-        $labelDatum = new StringDatumTuple($label, $datum);
-
-        $labelDatumList = new StringDatumTupleList();
-        $labelDatumList->add($labelDatum);
-
-        return $this->train($labelDatumList, $taskName);
+        return $this->trainDatum($label, $datum, $taskName);
     }
 
     /**
@@ -79,6 +91,23 @@ class Client extends AbstractClient {
         return $estimateResultListList;
     }
 
+
+    /**
+     * @param Datum  $datum
+     * @param string $taskName
+     *
+     * @return mixed|null
+     */
+    public function classifyDatum(Datum $datum, $taskName = self::DEFAULT_TASK_NAME)
+    {
+        $datumList = new DatumList();
+        $datumList->add($datum);
+
+        $estimateResultListList = $this->classify($datumList, $taskName);
+
+        return $estimateResultListList->getFirst();
+    }
+
     /**
      * @param string $string
      * @param string $taskName
@@ -90,17 +119,6 @@ class Client extends AbstractClient {
         $datum = new Datum();
         $datum->addStringValue('message', $string);
 
-        $datumList = new DatumList();
-        $datumList->add($datum);
-
-        $estimateResultList = null;
-        $estimateResultListList = $this->classify($datumList, $taskName);
-
-        foreach ($estimateResultListList as $list) {
-            $estimateResultList = $list;
-            break;
-        }
-
-        return $estimateResultList;
+        return $this->classifyDatum($datum, $taskName);
     }
 }

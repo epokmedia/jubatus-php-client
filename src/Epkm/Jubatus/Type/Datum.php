@@ -41,6 +41,24 @@ class Datum implements TypeInterface {
     }
 
     /**
+     * @return array
+     */
+    public function getNumValues()
+    {
+        return $this->numValues;
+    }
+
+    /**
+     * @return array
+     */
+    public function getStringValues()
+    {
+        return $this->stringValues;
+    }
+
+
+
+    /**
      * @param string $key
      * @param string $value
      */

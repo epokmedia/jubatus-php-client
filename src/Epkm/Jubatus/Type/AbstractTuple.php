@@ -40,6 +40,25 @@ class AbstractTuple implements TypeInterface {
     }
 
     /**
+     * @return mixed
+     */
+    public function getFirst()
+    {
+        return $this->first;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSecond()
+    {
+        return $this->second;
+    }
+
+
+
+
+    /**
      * @return array
      */
     public function toArray()
