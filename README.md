@@ -24,8 +24,8 @@ You can look at the tests for example usage.
 
 ## TODO
 
-- [] Stat and Graph clients
-- [] Optimization and cleanup
+- Stat and Graph clients
+- Optimization and cleanup
 
 ## Licence
 
