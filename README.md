@@ -22,6 +22,11 @@ This library has been tested with jubatus 0.4.3
 TBD
 You can look at the tests for example usage.
 
+## TODO
+
+- [] Stat and Graph clients
+- [] Optimization and cleanup
+
 ## Licence
 
 Copyright (c) 2013 EPOKMEDIA SARL

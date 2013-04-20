@@ -11,6 +11,8 @@
  *
  */
 
+namespace EpkmTest\Jubatus;
+
 use Epkm\Jubatus\Anomaly\Client;
 use Epkm\Jubatus\Type\Datum;
 
