@@ -12,12 +12,8 @@
  */
 
 class TestUtil {
-
     const HOST = '127.0.0.1';
     const PORT = 9199;
     const TIMEOUT = 30;
-
     const NAME = '';
-
-
 }

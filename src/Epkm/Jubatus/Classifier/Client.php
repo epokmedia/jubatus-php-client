@@ -121,4 +121,39 @@ class Client extends AbstractClient {
 
         return $this->classifyDatum($datum, $taskName);
     }
+
+    /**
+     * Returns all label list
+     *
+     * @param string $taskName
+     * @return mixed
+     */
+    public function getLabels($taskName = self::DEFAULT_TASK_NAME)
+    {
+        return $this->rpc->call('get_labels', array($taskName));
+    }
+
+    /**
+     * Append new label
+     *
+     * @param string $newLabel
+     * @param string $taskName
+     * @return bool
+     */
+    public function setLabel($newLabel, $taskName = self::DEFAULT_TASK_NAME)
+    {
+        return $this->rpc->call('set_label', array($taskName, $newLabel));
+    }
+
+    /**
+     * Deleting label
+     *
+     * @param string $targetLabel
+     * @param string $taskName
+     * @return bool
+     */
+    public function deleteLabel($targetLabel, $taskName = self::DEFAULT_TASK_NAME)
+    {
+        return $this->rpc->call('delete_label', array($taskName, $targetLabel));
+    }
 }

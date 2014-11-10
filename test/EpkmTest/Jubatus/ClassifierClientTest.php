@@ -114,14 +114,29 @@ class ClassifierClientTest extends PHPUnit_Framework_TestCase {
 
 
         $this->assertTrue($result instanceof EstimateResultList);
+        $this->assertCount(2, $result);
 
         /** @var EstimateResult $estimateResult */
         $estimateResult = $result->getFirst();
-
+        $this->assertNotNull($estimateResult);
         $this->assertTrue($estimateResult instanceof EstimateResult);
-        $this->assertEquals('ham', $estimateResult->getLabel());
-        $this->assertTrue($estimateResult->getScore() > 0);
 
+        foreach ($result as $v) {
+            $label = $v->getLabel();
+            switch ($label) {
+            case 'ham':
+                $this->assertEquals('ham', $label);
+                $this->assertTrue($v->getScore() > 0);
+                break;
+            case 'spam':
+                $this->assertEquals('spam', $label);
+                $this->assertTrue($v->getScore() == 0);
+                break;
+            default:
+                throw new Exception('Unknown label - ' . $label);
+                break;
+            }
+        }
 
         $result = $this->client->classifyString('free luxury watches for your dog');
 
@@ -137,4 +152,24 @@ class ClassifierClientTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($bestMatch->getScore() > 0);
     }
 
+    public function testLabel() {
+        $labels = $this->client->getLabels();
+        $this->assertEmpty($labels);
+
+        $this->client->trainString('ham', 'hello this is dog');
+        $this->client->trainString('spam', 'free watches in limited stock');
+
+        $labels = $this->client->getLabels();
+        $this->assertCount(2, $labels);
+        $this->assertContains('ham', $labels);
+        $this->assertContains('spam', $labels);
+
+        $this->assertTrue($this->client->setLabel('foo'));
+        $labels = $this->client->getLabels();
+        $this->assertCount(3, $labels);
+        $this->assertContains('foo', $labels);
+
+        $this->assertTrue($this->client->deleteLabel('foo'));
+        $this->assertCount(2, $this->client->getLabels());
+    }
 }
