@@ -92,6 +92,18 @@ abstract class AbstractClient {
     /**
      * @param string $taskName
      *
+     * @return array
+     */
+    public function getProxyStatus($taskName = self::DEFAULT_TASK_NAME)
+    {
+        $result = $this->rpc->call('get_proxy_status', array($taskName));
+
+        return $result;
+    }
+
+    /**
+     * @param string $taskName
+     *
      * @return bool
      */
     public function clear($taskName = self::DEFAULT_TASK_NAME)
@@ -121,6 +133,33 @@ abstract class AbstractClient {
         return $this->rpc->call('save', array($taskName, $id));
     }
 
+    /**
+     * @param string $taskName
+     *
+     * @return bool
+     */
+    public function doMix($taskName = self::DEFAULT_TASK_NAME)
+    {
+        return $this->rpc->call('do_mix', array($taskName));
+    }
 
+    /**
+     * @param string $taskName
+     *
+     * @return string
+     */
+    public function getName($taskName = self::DEFAULT_TASK_NAME)
+    {
+        return $this->rpc->call('get_name', array($taskName));
+    }
+
+    /**
+     * @param string $taskName
+     *
+     * @return bool
+     */
+    public function setName($newName, $taskName = self::DEFAULT_TASK_NAME)
+    {
+        return $this->rpc->call('set_name', array($taskName, $newName));
+    }
 }
-

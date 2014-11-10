@@ -10,7 +10,7 @@ Additionally you will need the msgpackrpc package available via composer (see be
 
 ## Compatibility
 
-This library has been tested with jubatus 0.4.3
+This library has been tested with jubatus 0.6.4
 
 ## Installation
 
@@ -21,6 +21,34 @@ This library has been tested with jubatus 0.4.3
 
 TBD
 You can look at the tests for example usage.
+
+### Test
+
+- Install PHPUnit
+
+```
+$ wget https://phar.phpunit.de/phpunit.phar
+$ chmod +x ./phpunit.phar
+$ ./phpunit.phar --version
+PHPUnit 4.3.4 by Sebastian Bergmann.
+
+$ php composer.phar update --dev
+```
+
+- ClassifierClientTest
+
+```
+term1$ jubaclassifier -f test/resources/config_classifier.json
+term2$  ./phpunit.phar --bootstrap test/Bootstrap.php test/EpkmTest/Jubatus/ClassifierClientTest.php
+PHPUnit 4.3.4 by Sebastian Bergmann.
+
+.......
+
+Time: 2.98 seconds, Memory: 3.75Mb
+
+OK (7 tests, 29 assertions)
+```
+
 
 ## TODO
 
